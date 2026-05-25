@@ -50,7 +50,7 @@
 
       .main-layout {
         display: flex;
-        align-items: flex-start;
+        align-items: stretch;
       }
 
       .content-area {
@@ -62,12 +62,18 @@
       .sidebar {
         width: 160px;
         flex-shrink: 0;
-        background: var(--white);
+        background: linear-gradient(
+          180deg,
+          #f7c85a 0%,
+          #fde8ad 36%,
+          #fff8e7 100%
+        );
         border-left: 1px solid var(--gray-border);
         padding: 16px 10px;
         display: flex;
         flex-direction: column;
         gap: 10px;
+        min-height: 100%;
       }
 
       .sidebar-title {
@@ -436,9 +442,9 @@
       .mini-list-item.highlight {
         padding: 10px 12px;
         border-radius: 12px;
-        border: 1px solid rgba(212, 147, 10, 0.28);
-        background: linear-gradient(135deg, #fff1d6, #ffd48b 55%, #f5b23c);
-        box-shadow: 0 8px 18px rgba(212, 147, 10, 0.18);
+        border: 1px solid rgba(109, 170, 92, 0.28);
+        background: linear-gradient(135deg, #eef9df, #d7f1b9 55%, #b8e38f);
+        box-shadow: 0 8px 18px rgba(109, 170, 92, 0.18);
       }
 
       .mini-list-icon {
@@ -907,7 +913,12 @@
           border-right: none;
           overflow-y: auto;
           z-index: 20;
-          background: var(--white);
+          background: linear-gradient(
+            180deg,
+            #f7c85a 0%,
+            #fde8ad 36%,
+            #fff8e7 100%
+          );
         }
 
         .sidebar-title {

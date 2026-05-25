@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phường Lê Ích Mộc - TP. Hải Phòng</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --blue-dark: #003087;
+    --blue-main: #0055b3;
+    --blue-light: #1a7fd4;
+    --blue-pale: #e8f3fc;
+    --red: #e63329;
+    --gold: #f5c518;
+    --white: #ffffff;
+    --gray-light: #f5f7fa;
+    --gray-border: #dde4ed;
+    --text-main: #1a2a4a;
+    --text-muted: #6b7a99;
+  }
+
+  body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background: var(--gray-light);
+    color: var(--text-main);
+    min-height: 100vh;
+  }
+
+  /* ===== LAYOUT ===== */
+  .app-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: var(--white);
+    box-shadow: 0 0 40px rgba(0,48,135,0.10);
+  }
+
+  .main-layout {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .content-area {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* ===== RIGHT SIDEBAR ===== */
+  .sidebar {
+    width: 160px;
+    flex-shrink: 0;
+    background: var(--white);
+    border-left: 1px solid var(--gray-border);
+    padding: 16px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .sidebar-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--blue-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--blue-main);
+    text-align: center;
+  }
+
+  .sidebar-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .sidebar-link-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 6px;
+    border: 1px solid var(--gray-border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-main);
+  }
+
+  .sidebar-link-item:hover {
+    background: var(--blue-pale);
+    border-color: var(--blue-light);
+    transform: translateY(-1px);
+  }
+
+  .sidebar-link-item .icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sidebar-link-item .icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .sidebar-link-item span {
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--blue-dark);
+  }
+
+  /* Facebook in sidebar */
+  .sidebar-link-item.facebook .icon svg {
+    color: #1877f2;
+  }
+
+  /* ===== HERO BANNER ===== */
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: var(--blue-dark);
+  }
+
+  .hero-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0,30,80,0.55) 0%, rgba(0,80,180,0.18) 60%, transparent 100%);
+  }
+
+  .hero-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    gap: 18px;
+  }
+
+  .hero-logo {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,255,255,0.85);
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    background: var(--white);
+  }
+
+  .hero-text {
+    color: var(--white);
+  }
+
+  .hero-text .city {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.9;
+  }
+
+  .hero-text .ward {
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  /* Slider dots */
+  .slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 0;
+    background: var(--white);
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gray-border);
+    transition: background 0.2s;
+  }
+
+  .dot.active {
+    background: var(--blue-main);
+    width: 20px;
+    border-radius: 4px;
+  }
+
+  /* ===== SECTION ===== */
+  .section {
+    background: var(--white);
+    margin: 10px 0;
+    padding: 16px;
+  }
+
+  .section + .section {
+    border-top: 6px solid var(--gray-light);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--blue-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  .section-title svg {
+    color: var(--blue-main);
+    flex-shrink: 0;
+  }
+
+  .see-all {
+    font-size: 12px;
+    color: var(--blue-main);
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    white-space: nowrap;
+  }
+
+  /* ===== THONG BAO ===== */
+  .notice-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .notice-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--gray-border);
+    cursor: pointer;
+  }
+
+  .notice-item:last-child { border-bottom: none; }
+
+  .notice-date {
+    background: var(--blue-main);
+    color: var(--white);
+    border-radius: 8px;
+    text-align: center;
+    padding: 6px 8px;
+    flex-shrink: 0;
+    min-width: 48px;
+  }
+
+  .notice-date .day {
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .notice-date .year {
+    font-size: 10px;
+    font-weight: 500;
+    opacity: 0.85;
+  }
+
+  .notice-body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .notice-title-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .notice-text {
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--text-main);
+    flex: 1;
+  }
+
+  .badge-new {
+    background: var(--red);
+    color: var(--white);
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 5px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .notice-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .action-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--gray-border);
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.2s;
+  }
+
+  .action-btn:hover { background: var(--blue-pale); color: var(--blue-main); }
+
+  .see-more-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 10px;
+    margin-top: 4px;
+    color: var(--blue-main);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* ===== OCOP PRODUCTS ===== */
+  .ocop-carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  .ocop-slide {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #c8860a, #e8a825, #f5c518);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ocop-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ocop-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.65));
+    padding: 28px 16px 14px;
+    text-align: center;
+  }
+
+  .ocop-label .product-name {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--white);
+    text-transform: uppercase;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    letter-spacing: 0.5px;
+  }
+
+  .ocop-stars {
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+    margin-top: 4px;
+  }
+
+  .ocop-stars svg { color: var(--gold); width: 16px; height: 16px; }
+
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.85);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    color: var(--blue-dark);
+  }
+
+  .carousel-arrow.left { left: 10px; }
+  .carousel-arrow.right { right: 10px; }
+
+  /* Small thumbs beside the carousel */
+  .ocop-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 6px;
+  }
+
+  .ocop-thumb {
+    border-radius: 8px;
+    overflow: hidden;
+    height: 160px;
+    background: linear-gradient(135deg, #d4a017, #f0c040);
+    opacity: 0.6;
+  }
+
+  /* ===== THONG TIN KHAC ===== */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+
+  .info-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 6px;
+    border: 1px solid var(--gray-border);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .info-card:hover {
+    background: var(--blue-pale);
+    border-color: var(--blue-light);
+    transform: translateY(-2px);
+  }
+
+  .info-card .icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .info-card .icon-wrap svg { width: 26px; height: 26px; }
+
+  .info-card span {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-main);
+    line-height: 1.3;
+  }
+
+  /* ===== BOTTOM INTERACTION BAR ===== */
+  .interaction-bar {
+    display: flex;
+    background: var(--white);
+    border-top: 2px solid var(--blue-pale);
+    padding: 10px 16px;
+    gap: 10px;
+  }
+
+  .interact-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    transition: all 0.2s;
+    border: none;
+  }
+
+  .interact-btn.hotline {
+    background: linear-gradient(135deg, #e63329, #c0251c);
+    color: var(--white);
+  }
+
+  .interact-btn.consult {
+    background: linear-gradient(135deg, var(--blue-main), var(--blue-dark));
+    color: var(--white);
+  }
+
+  .interact-btn:hover { transform: translateY(-1px); filter: brightness(1.08); }
+
+  .interact-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    background: var(--blue-dark);
+    color: var(--white);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .footer-left svg { color: rgba(255,255,255,0.7); flex-shrink: 0; }
+
+  .footer-name {
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .footer-sub {
+    font-size: 11px;
+    opacity: 0.75;
+  }
+
+  .footer-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 12px;
+  }
+
+  .footer-phone {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 600;
+  }
+
+  .footer-year { opacity: 0.7; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .main-layout {
+      flex-direction: column;
+    }
+
+    .sidebar {
+      width: 100%;
+      border-left: none;
+      border-top: 1px solid var(--gray-border);
+      padding: 14px 12px;
+      order: 2;
+    }
+
+    .sidebar-links {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .sidebar-link-item {
+      min-height: 108px;
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .section {
+      padding: 12px;
+    }
+
+    .hero {
+      height: 185px;
+    }
+
+    .hero-content {
+      padding: 0 14px;
+      gap: 10px;
+    }
+
+    .hero-logo {
+      width: 68px;
+      height: 68px;
+    }
+
+    .hero-text .city {
+      font-size: 10px;
+      letter-spacing: 0.6px;
+    }
+
+    .hero-text .ward {
+      font-size: 16px;
+      line-height: 1.15;
+    }
+
+    .section-title {
+      font-size: 12px;
+      gap: 6px;
+    }
+
+    .see-all {
+      font-size: 11px;
+    }
+
+    .notice-item {
+      gap: 8px;
+      padding: 10px 0;
+      align-items: center;
+    }
+
+    .notice-date {
+      min-width: 62px;
+      padding: 8px 6px;
+    }
+
+    .notice-date .day {
+      font-size: 13px;
+    }
+
+    .notice-date .year {
+      font-size: 8px;
+    }
+
+    .notice-text {
+      font-size: 12px;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .badge-new {
+      font-size: 8px;
+      padding: 2px 4px;
+    }
+
+    .notice-actions {
+      gap: 5px;
+    }
+
+    .action-btn {
+      width: 28px;
+      height: 28px;
+    }
+
+    .action-btn svg {
+      width: 13px;
+      height: 13px;
+    }
+
+    .info-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .ocop-grid {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .ocop-thumb {
+      display: none;
+    }
+
+    .interaction-bar {
+      flex-direction: column;
+      padding: 10px 12px;
+    }
+
+    .interact-btn {
+      width: 100%;
+    }
+
+    .footer {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 12px 14px;
+    }
+
+    .footer-right {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="app-wrapper">
+  <div class="main-layout">
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <div class="content-area">
+
+      <!-- Hero Banner -->
+      <div class="hero">
+        <img class="hero-banner-img" src="banner.png" alt="Banner Phường Lê Ích Mộc" onerror="this.style.display='none'">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <img class="hero-logo" src="logo.png" alt="Logo Phường Lê Ích Mộc" onerror="this.style.background='#0055b3'">
+          <div class="hero-text">
+            <div class="city">Thành phố Hải Phòng</div>
+            <div class="ward">Phường Lê Ích Mộc</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slider dots -->
+      <div class="slider-dots">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+
+      <!-- THÔNG BÁO PHƯỜNG -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 6.37C2.67 4.89 3.77 3.5 5.27 3.5H8.3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L9.91 11A16 16 0 0016 16.09l.76-.76a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+            </svg>
+            Thông báo phường
+          </div>
+          <div class="see-all">Xem tất cả
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+
+        <div class="notice-list">
+          <!-- Item 1 -->
+          <div class="notice-item">
+            <div class="notice-date">
+              <div class="day">6/5</div>
+              <div class="year">2025</div>
+            </div>
+            <div class="notice-body">
+              <div class="notice-title-row">
+                <div class="notice-text">THÔNG BÁO Về việc thực hiện giải pháp đảm bảo trật tự lòng đường,...</div>
+                <span class="badge-new">MỚI</span>
+              </div>
+            </div>
+            <div class="notice-actions">
+              <button class="action-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </button>
+              <button class="action-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="notice-item">
+            <div class="notice-date">
+              <div class="day">23/4</div>
+              <div class="year">2025</div>
+            </div>
+            <div class="notice-body">
+              <div class="notice-title-row">
+                <div class="notice-text">THÔNG BÁO Cài đặt, sử dụng ứng dụng VNeID</div>
+                <span class="badge-new">MỚI</span>
+              </div>
+            </div>
+            <div class="notice-actions">
+              <button class="action-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </button>
+              <button class="action-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="notice-item">
+            <div class="notice-date">
+              <div class="day">14/4</div>
+              <div class="year">2025</div>
+            </div>
+            <div class="notice-body">
+              <div class="notice-title-row">
+                <div class="notice-text">THÔNG BÁO Cấp dự báo cháy rừng trên địa bàn phường Lê Ích Mộc</div>
+                <span class="badge-new">MỚI</span>
+              </div>
+            </div>
+            <div class="notice-actions">
+              <button class="action-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </button>
+              <button class="action-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="see-more-btn">
+          Xem thêm
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+
+      <!-- SẢN PHẨM OCOP -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+            Sản phẩm OCOP địa phương
+          </div>
+          <div class="see-all">Xem tất cả
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+
+        <div class="ocop-carousel">
+          <div class="ocop-grid">
+            <div class="ocop-thumb"></div>
+            <div style="position:relative; border-radius:10px; overflow:hidden; background: linear-gradient(135deg,#a06010,#d4930a,#f5c518);">
+              <div style="width:100%;height:160px;display:flex;align-items:center;justify-content:center;font-size:48px;">🍯</div>
+              <div class="ocop-label">
+                <div class="product-name">Mật Ong Rừng Lê Ích Mộc</div>
+                <div class="ocop-stars">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+              </div>
+              <button class="carousel-arrow left">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button class="carousel-arrow right">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+            <div class="ocop-thumb"></div>
+          </div>
+        </div>
+
+        <div class="slider-dots" style="margin-top:8px; background:none;">
+          <div class="dot active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      </div>
+
+      <!-- THÔNG TIN KHÁC -->
+      <div class="section">
+        <div class="section-title" style="margin-bottom:14px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Thông tin khác
+        </div>
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="icon-wrap" style="background:#fff0f0;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#e63329" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+            </div>
+            <span>Người tốt<br>việc tốt</span>
+          </div>
+          <div class="info-card">
+            <div class="icon-wrap" style="background:#e8f8ee;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#22a855" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+            </div>
+            <span>Cơ hội<br>việc làm</span>
+          </div>
+          <div class="info-card">
+            <div class="icon-wrap" style="background:#f3eeff;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            </div>
+            <span>Mô hình<br>khởi nghiệp</span>
+          </div>
+          <div class="info-card">
+            <div class="icon-wrap" style="background:#e8f3fc;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#0055b3" stroke-width="2" stroke-linecap="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+            </div>
+            <span>Công cụ<br>tiện ích</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTTOM INTERACTION BAR -->
+      <div class="interaction-bar">
+        <button class="interact-btn hotline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 6.37C2.67 4.89 3.77 3.5 5.27 3.5H8.3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L9.91 11A16 16 0 0016 16.09l.76-.76a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Hotline phản ánh
+        </button>
+        <button class="interact-btn consult">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          Tư vấn doanh nghiệp
+        </button>
+      </div>
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+    <!-- ===== RIGHT SIDEBAR ===== -->
+    <div class="sidebar">
+      <div class="sidebar-title">Liên kết</div>
+      <div class="sidebar-links">
+
+        <a class="sidebar-link-item" href="#">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#003087" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </div>
+          <span>Dịch vụ công quốc gia</span>
+        </a>
+
+        <a class="sidebar-link-item" href="#">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0055b3" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          </div>
+          <span>Trang thông tin phường</span>
+        </a>
+
+        <a class="sidebar-link-item" href="#">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1a7fd4" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <span>Bản đồ số</span>
+        </a>
+
+        <!-- Facebook moved here -->
+        <a class="sidebar-link-item facebook" href="#">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="#1877f2" xmlns="http://www.w3.org/2000/svg">
+              <path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/>
+            </svg>
+          </div>
+          <span>Chia sẻ quê hương</span>
+        </a>
+
+      </div>
+    </div>
+    <!-- END SIDEBAR -->
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      <div>
+        <div class="footer-name">UBND PHƯỜNG LÊ ÍCH MỘC</div>
+        <div class="footer-sub">Thành phố Hải Phòng</div>
+      </div>
+    </div>
+    <div class="footer-right">
+      <div class="footer-phone">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 6.37C2.67 4.89 3.77 3.5 5.27 3.5H8.3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L9.91 11A16 16 0 0016 16.09l.76-.76a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        0225 3 123 456
+      </div>
+      <div class="footer-year">© 2025</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

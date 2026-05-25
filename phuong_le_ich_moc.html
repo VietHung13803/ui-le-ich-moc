@@ -22,6 +22,8 @@
         --blue-pale: #e8f3fc;
         --blue-section: #d3e7fb;
         --divider-dark: #8a97ab;
+        --hero-mobile-height: 104px;
+        --hero-mobile-height-sm: 92px;
         --red: #e63329;
         --gold: #f5c518;
         --white: #ffffff;
@@ -140,6 +142,10 @@
         background: var(--blue-dark);
       }
 
+      .main-layout > .content-area > .hero {
+        display: none;
+      }
+
       .hero-banner-img {
         width: 100%;
         height: 100%;
@@ -191,6 +197,33 @@
       }
 
       .hero-text .ward {
+        font-size: 26px;
+        font-weight: 800;
+        line-height: 1.1;
+        text-transform: uppercase;
+        color: var(--gold);
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      .app-wrapper > .hero .city,
+      .app-wrapper > .hero .ward {
+        font-size: 0;
+        line-height: 0;
+      }
+
+      .app-wrapper > .hero .city::before {
+        content: "Thanh pho Hai Phong";
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        opacity: 0.9;
+        line-height: 1.2;
+        color: var(--white);
+      }
+
+      .app-wrapper > .hero .ward::before {
+        content: "Phuong Le Ich Moc";
         font-size: 26px;
         font-weight: 800;
         line-height: 1.1;
@@ -730,6 +763,16 @@
           line-height: 1.15;
         }
 
+        .app-wrapper > .hero .city::before {
+          font-size: 10px;
+          letter-spacing: 0.6px;
+        }
+
+        .app-wrapper > .hero .ward::before {
+          font-size: 16px;
+          line-height: 1.15;
+        }
+
         .section-title {
           font-size: 12px;
           gap: 6px;
@@ -852,7 +895,7 @@
 
         .sidebar {
           position: fixed;
-          top: 0;
+          top: var(--hero-mobile-height);
           right: 0;
           bottom: 76px;
           width: 88px;
@@ -976,6 +1019,7 @@
 
         .sidebar {
           width: 80px;
+          top: var(--hero-mobile-height-sm);
         }
 
         .hero {
@@ -998,6 +1042,16 @@
         }
 
         .hero-text .ward {
+          font-size: 14px;
+          line-height: 1.1;
+        }
+
+        .app-wrapper > .hero .city::before {
+          font-size: 9px;
+          letter-spacing: 0.4px;
+        }
+
+        .app-wrapper > .hero .ward::before {
           font-size: 14px;
           line-height: 1.1;
         }
@@ -1081,6 +1135,29 @@
   </head>
   <body>
     <div class="app-wrapper">
+      <!-- Hero Banner -->
+      <div class="hero">
+        <img
+          class="hero-banner-img"
+          src="banner.png"
+          alt="Banner PhÆ°á»ng LÃª Ãch Má»™c"
+          onerror="this.style.display = 'none'"
+        />
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <img
+            class="hero-logo"
+            src="logo.png"
+            alt="Logo PhÆ°á»ng LÃª Ãch Má»™c"
+            onerror="this.style.background = '#0055b3'"
+          />
+          <div class="hero-text">
+            <div class="city">ThÃ nh phá»‘ Háº£i PhÃ²ng</div>
+            <div class="ward">PhÆ°á»ng LÃª Ãch Má»™c</div>
+          </div>
+        </div>
+      </div>
+
       <div class="main-layout">
         <!-- ===== MAIN CONTENT ===== -->
         <div class="content-area">

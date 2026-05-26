@@ -24,6 +24,8 @@
         --divider-dark: #8a97ab;
         --hero-mobile-height: 104px;
         --hero-mobile-height-sm: 92px;
+        --mobile-bottom-bar-space: 84px;
+        --mobile-bottom-bar-space-sm: 80px;
         --red: #e63329;
         --gold: #f5c518;
         --white: #ffffff;
@@ -281,8 +283,14 @@
 
       .notice-board .section-header {
         background: var(--blue-section);
+        justify-content: flex-start;
         margin-bottom: 0;
         padding: 16px;
+        width: 100%;
+      }
+
+      .notice-board .see-all {
+        display: none;
       }
 
       .notice-board .notice-list,
@@ -693,47 +701,55 @@
       .footer {
         background: var(--blue-dark);
         color: var(--white);
-        padding: 14px 20px;
+        padding: 10px 16px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
+        gap: 10px;
       }
 
       .footer-left {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 8px;
       }
 
       .footer-left svg {
         color: rgba(255, 255, 255, 0.7);
         flex-shrink: 0;
+        width: 18px;
+        height: 18px;
       }
 
       .footer-name {
-        font-size: 13px;
+        font-size: 11px;
         font-weight: 700;
         line-height: 1.2;
       }
 
       .footer-sub {
-        font-size: 11px;
+        font-size: 9px;
         opacity: 0.75;
       }
 
       .footer-right {
         display: flex;
         align-items: center;
-        gap: 16px;
-        font-size: 12px;
+        gap: 12px;
+        font-size: 10px;
       }
 
       .footer-phone {
         display: flex;
         align-items: center;
-        gap: 5px;
-        font-weight: 600;
+        gap: 4px;
+        font-weight: 700;
+        color: var(--red);
+      }
+
+      .footer-phone svg {
+        width: 12px;
+        height: 12px;
       }
 
       .footer-year {
@@ -754,7 +770,7 @@
         .content-area {
           width: 100%;
           padding-right: 88px;
-          padding-bottom: 88px;
+          padding-bottom: 8px;
         }
 
         .section {
@@ -1035,19 +1051,48 @@
         .footer {
           flex-direction: column;
           align-items: flex-start;
-          padding: 12px 14px;
+          padding: 8px 12px;
+          padding-right: 100px;
+          margin-bottom: calc(
+            var(--mobile-bottom-bar-space) + env(safe-area-inset-bottom)
+          );
+          position: relative;
+          z-index: 19;
+        }
+
+        .footer-left {
+          gap: 6px;
+        }
+
+        .footer-left svg {
+          width: 16px;
+          height: 16px;
+        }
+
+        .footer-name {
+          font-size: 10px;
+        }
+
+        .footer-sub {
+          font-size: 8px;
         }
 
         .footer-right {
           width: 100%;
           justify-content: space-between;
+          font-size: 9px;
+        }
+
+        .footer-phone svg {
+          width: 10px;
+          height: 10px;
         }
       }
 
       @media (max-width: 420px) {
         .content-area {
           padding-right: 80px;
-          padding-bottom: 84px;
+          padding-bottom: 6px;
         }
 
         .sidebar {
@@ -1098,6 +1143,13 @@
           right: 80px;
           padding-left: 8px;
           padding-right: 8px;
+        }
+
+        .footer {
+          padding-right: 90px;
+          margin-bottom: calc(
+            var(--mobile-bottom-bar-space-sm) + env(safe-area-inset-bottom)
+          );
         }
 
         .interact-btn {
@@ -1219,7 +1271,7 @@
 
           <!-- THÔNG BÁO PHƯỜNG -->
           <div class="section notice-section notice-board">
-            <div class="section-title">
+            <div class="section-header">
               <div class="section-title">
                 <svg
                   width="18"

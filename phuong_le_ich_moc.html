@@ -274,6 +274,24 @@
         background: var(--blue-section);
       }
 
+      .notice-board {
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .notice-board .section-header {
+        background: var(--blue-section);
+        margin-bottom: 0;
+        padding: 16px;
+      }
+
+      .notice-board .notice-list,
+      .notice-board .see-more-btn {
+        background: var(--white);
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
       .section-header {
         display: flex;
         align-items: center;
@@ -743,6 +761,17 @@
           padding: 12px;
         }
 
+        .notice-board {
+          padding: 0;
+        }
+
+        .notice-board .section-header,
+        .notice-board .notice-list,
+        .notice-board .see-more-btn {
+          padding-left: 12px;
+          padding-right: 12px;
+        }
+
         .hero {
           min-height: 104px;
         }
@@ -1189,7 +1218,7 @@
           </div>
 
           <!-- THÔNG BÁO PHƯỜNG -->
-          <div class="section notice-section">
+          <div class="section notice-section notice-board">
             <div class="section-header">
               <div class="section-title">
                 <svg

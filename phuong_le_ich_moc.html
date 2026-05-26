@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no" />
     <title>Phường Lê Ích Mộc - TP. Hải Phòng</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap"
@@ -751,9 +752,20 @@
         color: var(--red);
       }
 
+      .footer-phone-number,
+      .footer-phone-number:link,
+      .footer-phone-number:visited,
+      .footer-phone-number:hover,
+      .footer-phone-number:active {
+        color: #ff2b2b !important;
+        text-decoration: none !important;
+        -webkit-text-fill-color: #ff2b2b;
+      }
+
       .footer-phone svg {
         width: 12px;
         height: 12px;
+        color: #ff2b2b;
       }
 
       .footer-year {
@@ -1787,7 +1799,9 @@
                 d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 6.37C2.67 4.89 3.77 3.5 5.27 3.5H8.3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L9.91 11A16 16 0 0016 16.09l.76-.76a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
               />
             </svg>
-            0225 3 123 456
+            <a class="footer-phone-number" href="tel:02253123456"
+              >0225 3 123 456</a
+            >
           </div>
           <div class="footer-year">© 2025</div>
         </div>
